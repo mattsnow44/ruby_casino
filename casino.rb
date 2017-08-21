@@ -1,6 +1,7 @@
 require 'pry'
 require_relative 'player'
 require_relative 'high_low'
+require_relative 'wallet'
 
 class Casino
   attr_accessor :players
@@ -24,6 +25,7 @@ class Casino
       puts 'Invalid Choice! Try Again'
       menu
     end
+    menu
   end
 end
 
