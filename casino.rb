@@ -13,6 +13,7 @@ class Casino
   end
 
   def menu
+    exit if out_of_money
     puts "1) High Low"
     puts "2) Quit"
     case gets.to_i
@@ -26,6 +27,9 @@ class Casino
       menu
     end
     menu
+  end
+  def out_of_money
+    @player.wallet.amount == 0
   end
 end
 

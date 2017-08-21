@@ -12,8 +12,12 @@ class HighLow
     puts "1: Play"
     puts "2: Leave the table"
     input = gets.strip
-      if  input == '1'
+      if  input == '1' && player.wallet.amount >= 20
         bet(player)
+      elsif
+        puts "Thanks for playing but you're out of money!!!"
+        puts "Have a nice day!!!"
+        exit
       else
       end
   end
@@ -23,7 +27,7 @@ class HighLow
     puts "How much do you want to bet?"
     print "$"
     bet = gets.to_f
-    if bet >= player.wallet.amount
+    if bet > player.wallet.amount
      puts "Thats more than you have."
      bet(player)
     elsif bet < 20.0
