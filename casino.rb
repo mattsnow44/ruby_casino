@@ -15,11 +15,17 @@ class Casino
   def menu
     exit if out_of_money
     puts "1) High Low"
-    puts "2) Quit"
+    puts "2) Roulette"
+    puts "3) Slots"
+    puts "4) Quit"
     case gets.to_i
     when 1
       HighLow.new(@player)
     when 2
+      Roulette.new(@player)
+    when 3
+      Slots.new(@player)
+    when 4
       puts 'Thanks for playing'
       exit
     else
