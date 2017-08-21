@@ -2,7 +2,7 @@ require 'pry'
 require_relative 'player'
 require_relative 'high_low'
 require_relative 'wallet'
-
+require_relative 'roulette'
 class Casino
   attr_accessor :players
 
