@@ -44,16 +44,3 @@ class Casino
 end
 
 Casino.new
-
-@amount += amount
-@amount = @amount + amount
-
-if (input == 'high' && dice_roll >= 8) || (input == 'low' && dice_roll <= 6 )
-  puts "Winner!"
-  player.wallet.add(bet*2)
-elsif input == 'even' && dice_roll == 7
-  puts "Big Winner!"
-  player.wallet.add(bet*4)
-else
-  puts "You Lose."
-end
