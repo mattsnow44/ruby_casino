@@ -29,6 +29,7 @@ class Roulette
     input = gets.strip
     if input == '1' && player.wallet.amount >= 10
       bet(player)
+    elsif input == '2'  
     else
       puts "Thanks for your donations, come back with more money!"
       exit
