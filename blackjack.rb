@@ -9,29 +9,25 @@ class Blackjack
     @d.cards.shuffle!
     @dealer_total = 0
     @player_total= 0
-    puts "Welcome to Blackjack, #{player.name}!"
-    puts 'Minimum bet is $20.'
-    if player.wallet.amount < 20
-      puts "Unfortunately, you don't have enough money to play. Goodbye!"
-      exit
+    puts "Welcome to the $20 Blackjack table, #{player.name}!"
+    puts "1) Play"
+    puts "2) Leave Table"
+    input = gets.to_i
+    if input == 1 && player.wallet.amount >= 20
+      bet = bet(player)
+      deal
+      finish(player, bet)
     else
-      puts "1) Play"
-      puts "2) Leave Table"
-      input = gets.to_i
-      if input == 1
-        bet = bet(player)
-      else
-        exit
-      end
     end
-    deal
-    finish(player, bet)
+    if player.wallet.amount < 20
+      puts "You don't have enough money to play."
+    end
   end
 
   def bet(player)
-    puts "You have $#{player.wallet.amount} to play with."
+    puts "You have $#{player.wallet.amount} in your wallet."
     puts "How much would you like to bet?"
-    puts "$"
+    print "$"
     bet = gets.to_f
     if bet > player.wallet.amount
       puts "That's more than you have."
@@ -39,6 +35,8 @@ class Blackjack
     elsif bet < 20
       puts "You must bet at least $20 to play."
     else
+      player.wallet.amount -= bet
+      puts "You have #{player.wallet.amount} left in your wallet."
       return bet
     end
   end
@@ -52,7 +50,7 @@ class Blackjack
     dealer_hand << @d.cards.shift
     puts "Dealer shows #{dealer_hand[0].rank} of #{dealer_hand[0].suit}"
     play(player_hand)
-    dealer_play(dealer_hand)
+    dealer_play(dealer_hand) unless @player_total > 21
   end
 
   def play(hand)
@@ -103,10 +101,6 @@ class Blackjack
         return total
       end
     end
-    if total > 21
-      puts "Bust!"
-      exit
-    end
     total
   end
 
@@ -115,35 +109,41 @@ class Blackjack
       hand << @d.cards.shift
       total = dealer_play(hand)
     end
-    if total > 21
-      puts "Dealer Bust!"
-      exit
-    end
     total
   end
 
   def finish(player, bet)
-    puts "You have #{@player_total}, Dealer has #{@dealer_total}."
-    if @player_total > @dealer_total
-      win(player)
-    elsif @dealer_total > @player_total
-      lose
+    if @player_total > 21
+      puts "Bust!".red
+      lose(player)
+    elsif @dealer_total > 21
+      puts "Dealer Bust!  You Win!".green
+      win(player, bet)
     else
-      standoff(player)
+      puts "You have #{@player_total}, Dealer has #{@dealer_total}."
+      if @player_total > @dealer_total
+        win(player, bet)
+      elsif @dealer_total > @player_total
+        lose(player)
+      else
+        standoff(player, bet)
+      end
     end
+      initialize(player)
   end
 
   def win(player, bet)
-    puts "You win!"
+    puts "You win!".green
     player.wallet.add(bet*2)
   end
 
-  def lose
-    puts "You lose."
+  def lose(player)
+    puts "You lose.".red
+    puts "You now have $#{player.wallet.amount} left to play with."
   end
 
   def standoff(player, bet)
-    puts "Standoff."
+    puts "Standoff.".yellow
     player.wallet.add(bet)
   end
 end
