@@ -20,25 +20,31 @@ class Roulette
           a single number or a range of numbers, the colors red or black,
           or whether the number is odd or even,
           or if the numbers are high (19–36) or low (1–18)."
-    puts "1: Play"
-    puts "2: Leave the table"
+    puts ""
+    puts "You have #{player.wallet.amount} to play with.".colorize(:light_red)
+    puts ""
+    puts ""
+    puts "1: Play".colorize(:cyan)
+    puts "2: Leave the table".colorize(:cyan)
     input = gets.strip
-    if input == '1'
+    if input == '1' && player.wallet.amount >= 10
       bet(player)
     else
+      puts "Thanks for your donations, come back with more money!"
+      exit
     end
   end
 
  def bet(player)
     puts ""
-    puts "How much do you want to bet?"
+    puts "How much do you want to bet?".colorize(:yellow)
     print "$".colorize(:blue)
     bet = gets.to_f
     if bet > player.wallet.amount
-     puts "Thats more than you have."
+     puts "Thats more than you have.".colorize(:red)
      bet(player)
    elsif bet < 10.0
-      puts "Must bet at least $10"
+      puts "Must bet at least $10".colorize(:red)
       bet(player)
     else
       play(player, bet)
@@ -59,37 +65,37 @@ class Roulette
         if input == color_spin
           win(player, bet)
         else
-          lose
+          lose(player, bet)
         end
       when 'red'
         if input == color_spin
           win(player, bet)
         else
-          lose
+          lose(player, bet)
         end
       when 'high'
         if number_spin >= 19
           win(player, bet)
         else
-          lose
+          lose(player, bet)
         end
       when 'low'
         if number_spin <= 18
           win(player, bet)
         else
-          lose
+          lose(player, bet)
         end
       when 'even'
         if number_spin % 2 == 0
           win(player, bet)
         else
-          lose
+          lose(player, bet)
         end
       when 'odd'
         if number_spin % 2 != 0
           win(player, bet)
         else
-          lose
+          lose(player, bet)
         end
       else
         if input.to_i == number_spin
@@ -103,13 +109,13 @@ class Roulette
 
 
  def win(player, bet)
-    puts "Congrats!"
+    puts "Congrats!".colorize(:green)
     player.wallet.add(bet)
     initialize(player)
   end
 
  def lose(player, bet)
-    puts "Too bad!"
+    puts "Too bad!".colorize(:magenta)
     player.wallet.subtract(bet)
     initialize(player)
   end
