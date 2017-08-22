@@ -18,8 +18,8 @@ class Casino
     puts "1) High Low"
     puts "2) Roulette"
     puts "3) Slots"
-    puts "4) Black Jack"
-    puts "4) Quit"
+    puts "4) Blackjack"
+    puts "5) Quit"
     case gets.to_i
     when 1
       HighLow.new(@player)
@@ -57,4 +57,3 @@ elsif input == 'even' && dice_roll == 7
 else
   puts "You Lose."
 end
-  

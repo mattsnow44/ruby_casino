@@ -141,11 +141,9 @@ class Blackjack
   def lose
     puts "You lose."
   end
-  
+
   def standoff(player, bet)
     puts "Standoff."
     player.wallet.add(bet)
   end
 end
-
-Blackjack.new
