@@ -3,6 +3,16 @@ require_relative 'wallet'
 
 class Slots
   def initialize(player)
+    first_slot = ["BAR","$$$",""]
+    second_slot = ["BAR","$$$",""]
+    third_slot = ["BAR","$$$",""]
+    first_slot.sample = slot_1
+    second_slot.sample = slot_2
+    thrid_slot.sample = slot_3
+    if slot_1 == slot_2 && slot_2 == slot_3
+      player.wallet.amount = player.wallet.amount
+
+
     puts "Welcome to Slots #{player.name}"
     puts "Rules: Place your bet of either $1, $2, or $5, then spin the wheel!!!"
     puts "If you match 3 numbers, YOU WIN!!!"
@@ -43,7 +53,7 @@ class Slots
 
   def play(player, bet)
     puts "Press Enter to SPIN!!!"
-
+    @number.sample
     else
       puts "You Lose."
       player.wallet.subtract(bet)
